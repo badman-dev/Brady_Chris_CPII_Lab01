@@ -58,8 +58,7 @@ public class PersonReader {
                 System.out.printf( "%-15s %-15s %-15s %-15s %-15s %n", "ID#", "Firstname", "Lastname", "Title", "YOB");
                 System.out.println("======================================================================");
                 for( Person p: folks) {
-                    String[] pSplit = p.toCSVDataRecord().split(", ");
-                    System.out.printf("\n%-15s %-15s %-15s %-15s %-15s", pSplit[0], pSplit[1], pSplit[2], pSplit[3], pSplit[4]);
+                    System.out.printf("\n%-15s %-15s %-15s %-15s %-15s", p.getID(), p.getFirstName(), p.getLastName(), p.getTitle(), p.getYOB());
                 }
 
                 reader.close(); // must close the file to seal it and flush buffer
