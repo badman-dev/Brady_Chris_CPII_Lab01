@@ -12,7 +12,7 @@ class PersonTest {
     @BeforeEach
     void setUp() {
         p1 = new Person("000001", "Tom", "Wulf", "Prof.",1958);
-        p2 = new Person("000002", "John", "Dinkle", "Dr.",1985);
+        p2 = new Person("000002", "John", "Dinkle",1985);
     }
 
     @Test

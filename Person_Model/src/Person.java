@@ -15,6 +15,13 @@ public class Person {
         this.YOB = YOB;
     }
 
+    public Person(String ID, String firstName, String lastName, int YOB) {
+        this.ID = ID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.YOB = YOB;
+    }
+
     public String getID() {
         return ID;
     }

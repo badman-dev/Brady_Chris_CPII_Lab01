@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
@@ -11,6 +12,7 @@ public class ProductReader {
         JFileChooser chooser = new JFileChooser();
         File selectedFile;
         String rec = "";
+        ArrayList<Product> products = new ArrayList<>();
 
         try
         {
@@ -40,19 +42,22 @@ public class ProductReader {
                 BufferedReader reader =
                         new BufferedReader(new InputStreamReader(in));
 
-                // Finally we can read the file LOL!
-                System.out.printf( "%-10s %-15s %-30s %-15s %n", "ID#", "Name", "Description", "Cost");
-                System.out.println("======================================================================");
-
                 int line = 0;
                 while(reader.ready())
                 {
                     rec = reader.readLine();
                     String[] recSplit = rec.split(",");
                     line++;
-                    // echo to screen
-                    System.out.printf("\n%-10s %-15s %-30s %-15s", recSplit[0], recSplit[1], recSplit[2], recSplit[3]);
+
+                    Product p = new Product(recSplit[0], recSplit[1], recSplit[2], Double.valueOf(recSplit[3]));
+                    products.add(p);
                 }
+                System.out.printf( "%-10s %-15s %-30s %-15s %n", "ID#", "Name", "Description", "Cost");
+                System.out.println("======================================================================");
+                for(Product p:products) {
+                    System.out.printf("\n%-10s %-15s %-30s %-15s", p.getID(), p.getName(), p.getDescription(), p.getCost());
+                }
+
                 reader.close(); // must close the file to seal it and flush buffer
                 System.out.println("\n\nData file read!");
             }

@@ -57,7 +57,7 @@ public class PersonReader {
 
                 System.out.printf( "%-15s %-15s %-15s %-15s %-15s %n", "ID#", "Firstname", "Lastname", "Title", "YOB");
                 System.out.println("======================================================================");
-                for( Person p: folks) {
+                for(Person p: folks) {
                     System.out.printf("\n%-15s %-15s %-15s %-15s %-15s", p.getID(), p.getFirstName(), p.getLastName(), p.getTitle(), p.getYOB());
                 }
 

@@ -9,9 +9,9 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-public class ProductWriter {
+public class ProductGenerator {
     public static void main(String[] args) {
-        ArrayList<String> products = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
         File workingDirectory = new File(System.getProperty("user.dir"));
@@ -19,7 +19,6 @@ public class ProductWriter {
 
         boolean done = false;
 
-        String productRec = "";
         String ID = "";
         String name = "";
         String description = "";
@@ -31,14 +30,14 @@ public class ProductWriter {
             description = SafeInput.getNonZeroLenString(in, "Enter the product description");
             cost = SafeInput.getDouble(in, "Enter the product cost");
 
-            productRec = ID + ", " + name + ", " + description + ", " + cost;
-            products.add(productRec);
+            Product rec = new Product(ID, name, description, cost);
+            products.add(rec);
 
             done = SafeInput.getYNConfirm(in, "Are you done adding products?");
         } while (!done);
 
-        for( String p: products)
-            System.out.println(p);
+        for( Product p: products)
+            System.out.println(p.toCSVDataRecord());
 
         try
         {
@@ -51,9 +50,10 @@ public class ProductWriter {
 
             // Finally can write the file LOL!
 
-            for(String rec : products)
+            for(Product rec : products)
             {
-                writer.write(rec, 0, rec.length());  // stupid syntax for write rec
+                String recString = rec.toCSVDataRecord();
+                writer.write(recString, 0, recString.length());  // stupid syntax for write rec
                 // 0 is where to start (1st char) the write
                 // rec. length() is how many chars to write (all)
                 writer.newLine();  // adds the new line

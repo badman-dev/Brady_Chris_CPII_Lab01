@@ -17,7 +17,6 @@ public class PersonGenerator {
 
         boolean done = false;
 
-        String personRec = "";
         String ID = "";
         String firstName = "";
         String lastName = "";
