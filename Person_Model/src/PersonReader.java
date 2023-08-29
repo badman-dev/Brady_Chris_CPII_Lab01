@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 
@@ -11,6 +12,7 @@ public class PersonReader {
         JFileChooser chooser = new JFileChooser();
         File selectedFile;
         String rec = "";
+        ArrayList<Person> folks = new ArrayList<>();
 
         try
         {
@@ -41,18 +43,25 @@ public class PersonReader {
                         new BufferedReader(new InputStreamReader(in));
 
                 // Finally we can read the file LOL!
-                System.out.printf( "%-15s %-15s %-15s %-15s %-15s %n", "ID#", "Firstname", "Lastname", "Title", "YOB");
-                System.out.println("======================================================================");
 
                 int line = 0;
                 while(reader.ready())
                 {
                     rec = reader.readLine();
-                    String[] recSplit = rec.split(",");
+                    String[] recSplit = rec.split(", ");
                     line++;
-                    // echo to screen
-                    System.out.printf("\n%-15s %-15s %-15s %-15s %-15s", recSplit[0], recSplit[1], recSplit[2], recSplit[3], recSplit[4]);
+
+                    Person p = new Person(recSplit[0], recSplit[1], recSplit[2], recSplit[3], Integer.parseInt(recSplit[4]));
+                    folks.add(p);
                 }
+
+                System.out.printf( "%-15s %-15s %-15s %-15s %-15s %n", "ID#", "Firstname", "Lastname", "Title", "YOB");
+                System.out.println("======================================================================");
+                for( Person p: folks) {
+                    String[] pSplit = p.toCSVDataRecord().split(", ");
+                    System.out.printf("\n%-15s %-15s %-15s %-15s %-15s", pSplit[0], pSplit[1], pSplit[2], pSplit[3], pSplit[4]);
+                }
+
                 reader.close(); // must close the file to seal it and flush buffer
                 System.out.println("\n\nData file read!");
             }

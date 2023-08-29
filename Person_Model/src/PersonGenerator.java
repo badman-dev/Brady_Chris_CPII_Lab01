@@ -9,7 +9,7 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 public class PersonGenerator {
     public static void main(String[] args) {
-        ArrayList<String> folks = new ArrayList<>();
+        ArrayList<Person> folks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
         File workingDirectory = new File(System.getProperty("user.dir"));
@@ -29,16 +29,16 @@ public class PersonGenerator {
             firstName = SafeInput.getNonZeroLenString(in, "Enter the first name");
             lastName = SafeInput.getNonZeroLenString(in, "Enter the last name");
             title = SafeInput.getNonZeroLenString(in, "Enter the title");
-            YOB = SafeInput.getRangedInt(in, "Enter year of birth ", 1000, 9999);
+            YOB = SafeInput.getRangedInt(in, "Enter year of birth ", 1940, 2000);
 
-            personRec = ID + ", " + firstName + ", " + lastName + ", " + title + ", " + YOB;
-            folks.add(personRec);
+            Person rec = new Person(ID, firstName, lastName, title, YOB);
+            folks.add(rec);
 
             done = SafeInput.getYNConfirm(in, "Are you done?");
         } while(!done);
 
-        for( String p: folks)
-            System.out.println(p);
+        for( Person p: folks)
+            System.out.println(p.toCSVDataRecord());
 
         try
         {
@@ -51,9 +51,10 @@ public class PersonGenerator {
 
             // Finally can write the file LOL!
 
-            for(String rec : folks)
+            for(Person rec : folks)
             {
-                writer.write(rec, 0, rec.length());  // stupid syntax for write rec
+                String recString = rec.toCSVDataRecord();
+                writer.write(recString, 0, recString.length());  // stupid syntax for write rec
                 // 0 is where to start (1st char) the write
                 // rec. length() is how many chars to write (all)
                 writer.newLine();  // adds the new line
