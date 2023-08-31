@@ -1,2 +1,2 @@
-00001, Test name, Test description, 999.0
-000002, Test name 2, second test desc, 23.0
+000001, Spoon, For eating soup, 9.99
+000002, Hammer, For hammering nails, 29.99

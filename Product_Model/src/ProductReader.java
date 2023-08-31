@@ -46,7 +46,7 @@ public class ProductReader {
                 while(reader.ready())
                 {
                     rec = reader.readLine();
-                    String[] recSplit = rec.split(",");
+                    String[] recSplit = rec.split(", ");
                     line++;
 
                     Product p = new Product(recSplit[0], recSplit[1], recSplit[2], Double.valueOf(recSplit[3]));
